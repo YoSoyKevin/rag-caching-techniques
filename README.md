@@ -85,6 +85,7 @@ Este proyecto es una base profesional para sistemas de Retrieval Augmented Gener
 1. Copia tu clave de Google Gemini en `config/.env`:
    ```
    GOOGLE_API_KEY=tu_clave
+<<<<<<< HEAD
    POSTGRES_USER=postgres
    POSTGRES_PASSWORD=postgres
    POSTGRES_DB=postgres
@@ -93,6 +94,14 @@ Este proyecto es una base profesional para sistemas de Retrieval Augmented Gener
    EMBEDDING_MODEL=models/embedding-001  # Modelo de embeddings de Google Gemini
    LLM_MODEL=gemini-2.5-flash           # Modelo LLM de Google Gemini
    CACHE_DISTANCE_THRESHOLD=-0.95
+=======
+   POSTGRES_PASSWORD=postgres
+   POSTGRES_USER=postgres
+   POSTGRES_DB=RAG
+   DATABASE_URL=postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/RAG
+   EMBEDDING_MODEL=models/embedding-001  # Modelo de embeddings de Google Gemini
+   LLM_MODEL=gemini-2.5-flash           # Modelo LLM de Google Gemini
+>>>>>>> b9cd0ce (Initial commit: LangChain RAG API with semantic/exact query and indexing)
    ```
 2. Instala las dependencias y levanta el servidor:
    ```bash
