@@ -16,7 +16,7 @@
 
 ## Semantic Cache (Semantic Caching)
 
-- **Definición:** Guarda y recupera respuestas para prompts que sean semánticamente similares, usando embeddings y búsqueda vectorial. **Ya no se verifica el contexto**: solo importa la similitud del embedding.
+- **Definición:** Guarda y recupera respuestas para prompts que sean semánticamente similares, usando embeddings y búsqueda vectorial. 
 - **Uso:** Ideal para preguntas similares en significado, aunque no sean idénticas en texto.
 - **Ventajas:**
   - Responde rápido a variaciones de una misma pregunta.
