@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+langchain>=0.2.0
+langchain-google-genai>=2.1.5
+psycopg2-binary
+pgvector
+sqlalchemy>=2.0
+python-dotenv
+pydantic>=2.0
+pytest
+httpx
+loguru
+slowapi
