@@ -91,3 +91,7 @@ def rag_index(request: IndexRequest, indexer=Depends(get_indexer)):
     except Exception as e:
         logger.exception("Error en /rag/index")
         raise HTTPException(status_code=500, detail="Internal server error") 
+    
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}    
