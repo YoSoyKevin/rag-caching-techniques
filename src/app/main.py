@@ -1,6 +1,9 @@
 import os
 import time
 from fastapi import FastAPI, HTTPException, Depends, Query, status, Request
+from dotenv import load_dotenv
+
+load_dotenv()
 from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
@@ -25,9 +28,11 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, lambda request, exc: PlainTextResponse("Rate limit exceeded", status_code=429))
 
 # --- CORS ---
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost,http://localhost:8000,http://localhost:3000,http://localhost:5173").split(',')
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:8000"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

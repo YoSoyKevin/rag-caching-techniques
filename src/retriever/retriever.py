@@ -20,7 +20,7 @@ CACHE_DISTANCE_THRESHOLD = float(os.getenv("CACHE_DISTANCE_THRESHOLD", "-0.95"))
 class Retriever:
     def __init__(self):
         self.embeddings = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL)
-        self.llm = ChatGoogleGenerativeAI(model=LLM_MODEL)
+        self.llm = ChatGoogleGenerativeAI(model=LLM_MODEL, temperature=0.1)
         self.semantic_cache = SemanticCacheManager()
 
     def _get_context_from_documents(self, session, query_vector):
@@ -54,25 +54,10 @@ class Retriever:
             # Si no hay cache hit, invocar LLM
             logger.info(f"CACHE MISS: prompt='{prompt[:30]}...', min_distance={min_distance}, context_hash={context_hash[:8]}...")
             messages = [
-                ("system", """ Eres un asistente experto, diseñado para brindar respuestas útiles, seguras y respetuosas, en todo momento.
-
-Si el usuario inicia la conversación con un saludo o comentario informal, responde de forma cordial, empática y natural.
-
-Si el usuario formula una pregunta, responde únicamente usando la información contenida en el contexto proporcionado.  
-Si el contexto no contiene la respuesta o no es suficiente para responder con precisión, informa educadamente que no dispones de esa información.
-
-Bajo ningún motivo debes:
-- Inventar o asumir datos que no estén explícitamente en el contexto.
-- Proporcionar información falsa, ambigua o sin sustento.
-- Ofrecer diagnósticos médicos, legales o financieros sin un profesional calificado.
-- Facilitar actividades peligrosas, ilegales, discriminatorias o poco éticas.
-- Compartir o inferir información sensible o personal del usuario u otras personas.
-- Promover discursos de odio, violencia o desinformación.
-
-Tus respuestas deben ser claras, responsables, imparciales y centradas en el bienestar del usuario. Siempre prioriza la seguridad, la equidad, la transparencia y el respeto a la privacidad.
-
-Si detectas una posible mala interpretación, riesgo o mal uso de la información solicitada, responde con cautela o rechaza la petición de forma razonada y educada.
-"""),
+                ("system", """Eres un asistente experto.
+Responde únicamente usando la información del contexto proporcionado. Si el contexto no es suficiente, indica que no dispones de esa información.
+No inventes datos, no proporciones información falsa o ambigua, ni ofrezcas consejos médicos/legales/financieros.
+Prioriza la seguridad, equidad y respeto. Si la petición es peligrosa o inadecuada, recházala educadamente."""),
                 ("human", f"Contexto:\n{context}\n\nPregunta: {prompt}")
             ]
             response = self.llm.invoke(messages)

@@ -41,9 +41,5 @@ dist/
 
 # Otros
 *.env
-<<<<<<< HEAD
 .env.*
 !.env.example 
-=======
-.env.* 
->>>>>>> b9cd0ce (Initial commit: LangChain RAG API with semantic/exact query and indexing)
